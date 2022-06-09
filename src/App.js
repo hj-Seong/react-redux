@@ -1,12 +1,12 @@
 import "./App.css";
-import Todos from "./components/Todos";
 import CounterContainer from "./containers/ConterContainer";
+import TodosContainer from "./containers/TodosContainer";
 function App() {
   return (
     <div className="App">
       <CounterContainer />
       <hr></hr>
-      <Todos />
+      <TodosContainer />
     </div>
   );
 }

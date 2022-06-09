@@ -4,9 +4,22 @@ const TodoItem = ({ todo, onToggle, onRemove }) => {
   // todo(할일 목록), onToggle(체크박스),onRemove(삭제)
   return (
     <div>
-      <input type="checkbox" />
-      <span>예제 텍스트</span>
-      <button>삭제</button>
+      <input
+        type="checkbox"
+        onClick={() => {
+          onToggle(todo.id);
+        }}
+        checked={todo.done}
+        readOnly={true}
+      />
+      <span style={{ textDecoration: todo.done ? "line-through" : "none" }}>{todo.text}</span>
+      <button
+        onClick={() => {
+          onRemove(todo.id);
+        }}
+      >
+        삭제
+      </button>
     </div>
   );
 };
@@ -20,17 +33,23 @@ const Todos = ({
   onToggle, //todoItem에 전달해줄 값
   onRemove,
 }) => {
+  const onChange = (e) => {
+    onChangeInput(e.target.value);
+  };
   const onSubmit = (e) => {
     e.preventDefault();
+    onInsert(input);
+    onChangeInput("");
   };
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input type="text" />
+        <input type="text" value={input} onChange={onChange} />
         <button type="submit">등록</button>
       </form>
-      <TodoItem />
-      <TodoItem />
+      {todos.map((todo) => (
+        <TodoItem todo={todo} key={todo.id} onToggle={onToggle} onRemove={onRemove} />
+      ))}
     </div>
   );
 };
