@@ -8,6 +8,10 @@ import { increase, decrease } from "../modules/counter";
 
 const CounterHookContainer = () => {
   // state에 접근하기위해 useSelector 사용
+  // 여러개의 값을 만들기 위해서는 구조화 할당을 이용한 객체사용
+  // const { a, b } = useSelector((state)=> { a : state.counter.a, b : state.counter.b,})
+  // const  state = useSelector((state)=> { a : state.counter.a, b : state.counter.b,})
+  // state.a 접근
   const number = useSelector((state) => state.counter.number);
   // dispatch를 사용하기 위해 useDispatch 사용
   const dispatch = useDispatch();
