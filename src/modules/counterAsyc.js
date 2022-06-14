@@ -1,5 +1,10 @@
 // 타이머 함수를 이용해서 1초 늦게 증가하는 카운터 모듈 - 비동기
 // Thunk 생성함수 만들어서 사용
+// 미들웨어는 모든 dispatch 가 실행되기전에 호출된다 ex)logger
+
+// Thunk의 경우 실행되었을때
+// 함수로 감싸져 있다면 미들웨어의 내용을 실행하고
+// 함수로 감싸져 있지않다면 바로 dispatch를 실행한다.
 
 const INCREASE = "counter/INCREASE";
 const DECREASE = "coutner/DECREASE";
