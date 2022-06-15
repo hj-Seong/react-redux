@@ -12,7 +12,7 @@ const DIFF = "counter/DIFF";
 export const increase = () => ({ type: INCREASE });
 export const decrease = () => ({ type: DECREASE });
 export const setDiff = (diff) => ({ type: SETDIFF, payload: diff });
-export const diff = () => ({ type: DIFF });
+export const onDiff = () => ({ type: DIFF });
 
 // 초기 상태
 const initalState = {
@@ -37,12 +37,12 @@ function counter(state = initalState, action) {
     case SETDIFF:
       return {
         ...state,
-        diff: action.payload,
+        diff: parseInt(action.payload),
       };
     case DIFF:
       return {
         ...state,
-        number: state.number + parseInt(state.diff),
+        number: state.number + state.diff,
       };
     default:
       return state;

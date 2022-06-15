@@ -4,7 +4,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Counter from "../components/Counter";
-import { increase, decrease } from "../modules/counter";
+import { increase, decrease, setDiff, onDiff } from "../modules/counter";
 
 const CounterHookContainer = () => {
   // state에 접근하기위해 useSelector 사용
@@ -12,7 +12,10 @@ const CounterHookContainer = () => {
   // const { a, b } = useSelector((state)=> { a : state.counter.a, b : state.counter.b,})
   // const  state = useSelector((state)=> { a : state.counter.a, b : state.counter.b,})
   // state.a 접근
-  const number = useSelector((state) => state.counter.number);
+  const { number, diff } = useSelector((state) => ({
+    number: state.counter.number,
+    diff: state.counter.diff,
+  }));
   // dispatch를 사용하기 위해 useDispatch 사용
   const dispatch = useDispatch();
 
@@ -20,6 +23,10 @@ const CounterHookContainer = () => {
   const onIncrease = useCallback(() => dispatch(increase()), [dispatch]);
   const onDecrease = useCallback(() => dispatch(decrease()), [dispatch]);
 
-  return <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} />;
+  // 값을 가져오는 함수는 매개변수 값을 넣어서 작성 : (diff) => dispatch(setDiff(diff))
+  const onSetDiff = useCallback((diff) => dispatch(setDiff(diff)), [dispatch]);
+  const OnDiff = useCallback(() => dispatch(onDiff()), [dispatch]);
+
+  return <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} diff={diff} onSetDiff={onSetDiff} onDiff={OnDiff} />;
 };
 export default CounterHookContainer;

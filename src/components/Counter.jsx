@@ -6,10 +6,14 @@
  * 3. 리덕스를 이용하여 상태관리 하여 사용 : props을 통해 값 가져옴
  */
 const Counter = ({ number, onIncrease, onDecrease, diff, onSetDiff, onDiff }) => {
+  // 바뀌는 값을 가져올때는 함수를 거쳐서 이벤트 객체를 통해서 들고온다
+  const onChange = (e) => {
+    onSetDiff(e.target.value);
+  };
   return (
     <div>
       <h1>{number}</h1>
-      <input type="number" value={diff} onChange={onSetDiff} />
+      <input type="number" value={diff} onChange={onChange} />
       <div>
         <button onClick={onDecrease}>-</button>
         <button onClick={onIncrease}>+</button>
