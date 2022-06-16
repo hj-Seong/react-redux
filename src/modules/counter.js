@@ -11,6 +11,8 @@ const DIFF = "counter/DIFF";
 // 액션 함수 : 액션에 들어갈 값이 바뀔 때 쉽게 사용하기 위함
 export const increase = () => ({ type: INCREASE });
 export const decrease = () => ({ type: DECREASE });
+
+// 값을 가져오는 함수는 매개변수 값을 넣어서 작성 : (diff) => ({ type: SETDIFF, payload: diff })
 export const setDiff = (diff) => ({ type: SETDIFF, payload: diff });
 export const onDiff = () => ({ type: DIFF });
 
