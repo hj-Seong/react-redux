@@ -17,9 +17,10 @@ function* getNewsSaga() {
   // try catch를 통해서 axios에서 값을 가져옴
   try {
     // saga에서 api를 사용할때는 call을 사용해서 함수를 실행한다. (async-await 대신)
-    // call( 실행할 함수 , 함수의 인자값(옵션))
-    const response = yield call(axios.get("https://newsapi.org/v2/top-headlines?country=kr&category=business&apiKey=c4c09dd0ba45435cb60e93cd10259c2a"));
-    console.log(response.data.articles);
+    // call( 실행할 함수(함수로 감싸서) , 함수의 인자값(옵션))
+    // api폴더와 파일 따로 만들어서 export 해서 사용 api.newsget()
+    const response = yield call(() => axios.get("https://newsapi.org/v2/top-headlines?country=kr&category=business&apiKey=c4c09dd0ba45435cb60e93cd10259c2a"));
+    console.log(response);
     yield put({
       type: GET_NEWS_SUCCESS,
       payload: response.data.articles,
@@ -29,6 +30,7 @@ function* getNewsSaga() {
       type: GET_NEWS_FAILURE,
       payload: e,
     });
+    console.log(e);
   }
   // 성공 : GET_NEWS_SUCCESS로 값 전달
   // 실패 : GET_NEWS_FAILURE로 오류 전달
