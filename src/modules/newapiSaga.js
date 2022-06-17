@@ -1,11 +1,14 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import axios from "axios";
+// * 전체를 들고오는 기호
+// as 별칭 별명 (전체를 들고올때 어떤 이름으로 들고올지)
+// api.getNews()
+import * as api from "../api/api";
 
 // 액션타입
-const GET_NEWS_START = "newapiSaga/GET_NEWS_START";
-const GET_NEWS = "newapiSaga/GET_NEWS";
-const GET_NEWS_SUCCESS = "newapiSaga/GET_NEWS_SUCCESS";
-const GET_NEWS_FAILURE = "newapiSaga/GET_NEWS_FAILURE";
+const GET_NEWS_START = "newapiSaga/GET_NEWS_START"; // 실행할 사가액션의 이름
+const GET_NEWS = "newapiSaga/GET_NEWS"; //로딩유무
+const GET_NEWS_SUCCESS = "newapiSaga/GET_NEWS_SUCCESS"; // 성공했을때 값 할당
+const GET_NEWS_FAILURE = "newapiSaga/GET_NEWS_FAILURE"; // 실패했을때 오류 할당
 
 // 액션함수
 export const getNewsStart = () => ({ type: GET_NEWS_START });
@@ -18,9 +21,9 @@ function* getNewsSaga() {
   try {
     // saga에서 api를 사용할때는 call을 사용해서 함수를 실행한다. (async-await 대신)
     // call( 실행할 함수(함수로 감싸서) , 함수의 인자값(옵션))
-    // api폴더와 파일 따로 만들어서 export 해서 사용 api.newsget()
-    const response = yield call(() => axios.get("https://newsapi.org/v2/top-headlines?country=kr&category=business&apiKey=c4c09dd0ba45435cb60e93cd10259c2a"));
-    console.log(response);
+    // api폴더와 파일 따로 만들어서 export 해서 사용 api.newsget
+    const response = yield call(api.getNews);
+    console.log(response.data.articles);
     yield put({
       type: GET_NEWS_SUCCESS,
       payload: response.data.articles,
