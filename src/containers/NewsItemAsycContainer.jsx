@@ -15,7 +15,8 @@ const NewsItemAsycContainer = () => {
 
   // 마운트될때 실행하기 위해서 useEffect 사용
   useEffect(() => {
-    GetNews();
+    GetNews(); // 비동기 함수 - setTimer?
+    console.log("useEffect 실행"); // 동기
   }, [GetNews]);
 
   return <NewsItem news={news} loadingNew={loadingNews} />;
